@@ -1,105 +1,129 @@
-import React, {Component} from 'react';
-import {Doughnut} from 'react-chartjs-2';
-import styles from './Second.scss'; 
-{/* <Doughnut data={this.state.values} /> */}
-const Item = (props) => {
-
-    return (
-        <div key={props.key} className="col-sm-12 card_main ">
-            <div className="card">
-                <div className="card-body">
-              
-                    <div className="row">
-                        <div className="col-sm-6">{props.name}</div>
-                        <div className="col-sm-6">{props.prise}</div>
-                     </div>
-                </div>
-            </div>
-        </div>
-    )
-};
-class Currency2 extends Component {
-    constructor() {
-        super();
-        this.state = {
-            values: [],
-            valuefirst: '',
-            key: '',
-            prise: '',
-            name: ''
-
-        };
-
-        this.update = this
-            .update
-            .bind(this);
-        this.handleChange = this
-            .handleChange
-            .bind(this);
-    }
-
-    handleChange(event) {
-        this.setState({
-            valuefirst: event.target.value
-        }, this.update);
-        console.log(event.target.value);
-    }
-    update() {
-        var url = 'https://api.coinmarketcap.com/v2/ticker/?convert=' + this.state.valuefirst + '&limit=6';
-        fetch(url)
-            .then(resp => resp.json())
-            .then((data) => {
-                console.log(data['data']);
-                
-                const a = Object.values(data['data'])
-                this.setState({values: a});
-            });
-    }
-    render() {
-        return (
-
-            <div className="main">
-                <h1>Cryptocurrency Converter Calculator</h1>
-                <input type="number"/>
-                <select name="" id="">
-                    <option value="Bitcoin">Bitcoin</option>
-                    <option value="Litecoin">Litecoin</option>
-                    <option value="Ripple">Ripple</option>
-                    <option value="Bitcoin">Ethereum</option>
-                    <option value="Litecoin">EOS</option>
-                    <option value="Ripple">Bitcoin Cash</option>
-                </select>
-                <button>=</button>
-                <select name="" id="">
-                    <option value="USD">USD</option>
-                    <option value="EUR">EUR</option>
-                    <option value="RUB">RUB</option>
-                </select>
-
-                <div>
-                    {(this.state.values)
-                        ? this.state.values.map((el, i) => <Item 
-                        name={el.name} 
-                        key={i} 
-                        prise={el.quotes[Object.keys(el.quotes)[0]].price}>
-                        </Item>)
-                        : <div className="empty_erro">No values</div>
+import React, { Component } from "react";
+import { Doughnut } from "react-chartjs-2";
+import styles from "./Second.scss";
+{
+  /* <Doughnut data={this.state.values} /> */
 }
-                </div>
-                <div>
-                    <select name="" id="">
-                    <option>Select</option>
-                    <option>Day</option>
-                    <option>Month</option>
-                   <option>Year</option>
-                </select>
-                </div>
-<div>
-     {/* <Doughnut ref='chart' data={data} /> */}
-</div>
-            </div>
-        );
+
+class Currency2 extends Component {
+  constructor() {
+    super();
+    this.state = {
+      values: {},
+      valuenumb: 0,
+      valuecript: "1",
+      textcript: "Bitcoin",
+      valuecurrency: "USD",
+      key: "",
+      price: 0,
+      newprice: "0",
+      name: ""
+    };
+
+    this.update = this.update.bind(this);
+  }
+
+  estimation() {}
+
+  handleChange(param, event) {
+    if (param == "number") {
+      this.setState(
+        {
+          valuenumb: Number(event.target.value)
+        },
+        this.update
+      );
     }
+    if (param == "cripta") {
+      var index = event.nativeEvent.target.selectedIndex;
+
+      this.setState(
+        {
+          valuecript: event.target.value,
+          textcript: event.nativeEvent.target[index].text
+        },
+        this.update
+      );
+    }
+    if (param == "currency") {
+      this.setState(
+        {
+          valuecurrency: event.target.value
+        },
+        this.update
+      );
+    }
+    console.log(event.target.value);
+  }
+  update() {
+    var url =
+      "https://api.coinmarketcap.com/v2/ticker/" +
+      this.state.valuecript +
+      "/?convert=" +
+      this.state.valuecurrency +
+      "";
+    fetch(url)
+      .then(resp => resp.json())
+      .then(data => {
+        console.log(data.data);
+        this.setState({ values: data.data });
+
+        this.setState({
+          price: data.data.quotes[Object.keys(data.data.quotes)[0]].price
+        });
+      });
+    this.setState({
+      newprice: this.state.price * this.state.valuenumb
+    });
+  }
+  render() {
+    return (
+      <div className="main">
+        <h1>Cryptocurrency Converter Calculator</h1>
+        <input
+          value={this.state.valuenumb}
+          onChange={this.handleChange.bind(this, "number")}
+          type="number" min="0"
+        />
+        <select onChange={this.handleChange.bind(this, "cripta")}>
+          <option value="1">Bitcoin</option>
+          <option value="2">Litecoin</option>
+          <option value="3">Namecoin</option>
+          <option value="4">Terracoin</option>
+          <option value="5">Peercoin</option>
+          <option value="6">Novacoin</option>
+        </select>
+        <button onClick={this.estimation.bind(this)}>=</button>
+        <select onChange={this.handleChange.bind(this, "currency")}>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="RUB">RUB</option>
+        </select>
+
+        <div>
+          <select name="" id="">
+            <option>Select</option>
+            <option>Day</option>
+            <option>Month</option>
+            <option>Year</option>
+          </select>
+        </div>
+
+        <div>
+          <div className="col-sm-12 card_main ">
+            <div className="card">
+              <div className="card-body">
+                <p id="numb">
+                  {this.state.valuenumb} {this.state.textcript}
+                </p>
+                <p> {this.state.newprice}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Currency2;
