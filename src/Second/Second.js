@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import { Doughnut } from "react-chartjs-2";
 import styles from "./Second.scss";
-{
-  /* <Doughnut data={this.state.values} /> */
-}
+
 
 class Currency2 extends Component {
   constructor() {
@@ -100,16 +97,7 @@ class Currency2 extends Component {
           <option value="RUB">RUB</option>
         </select>
 
-        <div>
-          <select name="" id="">
-            <option>Select</option>
-            <option>Day</option>
-            <option>Month</option>
-            <option>Year</option>
-          </select>
-        </div>
-
-        <div>
+      <div>
           <div className="col-sm-12 card_main ">
             <div className="card">
               <div className="card-body">

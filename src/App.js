@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import Currency from './First/First.js';
 import Currency2 from './Second/Second.js';
+import Currency3 from './Third/Third.js';
 import './App.css';
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
         <div>
           <Currency/>
            <Currency2/> 
+           <Currency3/> 
         </div> 
       </div>
     );
