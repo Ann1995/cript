@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import Currency from './First/First.js';
 import Currency2 from './Second/Second.js';
 import Currency3 from './Third/Third.js';
+import Currency4 from './Fourth/Fourth.js';
 import './App.css';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
           <Currency/>
            <Currency2/> 
            <Currency3/> 
+           <Currency4/> 
         </div> 
       </div>
     );

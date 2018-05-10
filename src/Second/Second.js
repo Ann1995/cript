@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styles from "./Second.scss";
 
-
 class Currency2 extends Component {
   constructor() {
     super();
@@ -50,7 +49,6 @@ class Currency2 extends Component {
         this.update
       );
     }
-    console.log(event.target.value);
   }
   update() {
     var url =
@@ -62,7 +60,6 @@ class Currency2 extends Component {
     fetch(url)
       .then(resp => resp.json())
       .then(data => {
-        console.log(data.data);
         this.setState({ values: data.data });
 
         this.setState({
@@ -80,7 +77,8 @@ class Currency2 extends Component {
         <input
           value={this.state.valuenumb}
           onChange={this.handleChange.bind(this, "number")}
-          type="number" min="0"
+          type="number"
+          min="0"
         />
         <select onChange={this.handleChange.bind(this, "cripta")}>
           <option value="1">Bitcoin</option>
@@ -97,7 +95,7 @@ class Currency2 extends Component {
           <option value="RUB">RUB</option>
         </select>
 
-      <div>
+        <div>
           <div className="col-sm-12 card_main ">
             <div className="card">
               <div className="card-body">

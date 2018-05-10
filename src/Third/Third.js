@@ -93,8 +93,6 @@ class Currency3 extends Component {
     fetch(url)
       .then(resp => resp.json())
       .then(res => {
-        console.log(res);
-        console.log(res.bpi);
         this.setState({
           values: res.bpi,
           char: {
@@ -146,7 +144,7 @@ class Currency3 extends Component {
 
         <div>
           <div className="col-sm-12 card_main ">
-            <div className="card">
+            <div className="schedule">
               <Line data={this.state.char} />
             </div>
           </div>
