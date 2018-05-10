@@ -3,7 +3,7 @@ import styles from "./Fourth.scss";
 import { Line } from "react-chartjs-2";
 import Websocket from "react-websocket";
 const initialState = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
+  labels: new Array(10),
   datasets: [
     {
       label: "Current Bitcoin Dynamic",
@@ -24,7 +24,7 @@ const initialState = {
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: [65, 59, 80, 81, 56, 55, 40]
+      data: []
     }
   ]
 };
@@ -40,46 +40,40 @@ class Currency4 extends React.Component {
   }
 
   handleData(data) {
+    var newData = [];
     const result = JSON.parse(data);
-    console.log(result);
+
+    for (var x = 0; x < this.state.labels.length; x++) {
+      newData.push(result.events[0].price);
+    }
+    this.setState({ data: newData });
+
+    var oldDataSet = this.state.datasets[0];
+    var newData = this.state.data;
+    var newDataSet = {
+      ...oldDataSet
+    };
+
+    newDataSet.data = newData;
+    var newState = {
+      ...initialState,
+      datasets: [newDataSet]
+    };
+
+    this.setState(newState);
   }
-  componentDidMount() {
-    setInterval(result => {
-      var oldDataSet = this.state.datasets[0];
-      var newData = [];
-
-      for (var x = 0; x < this.state.labels.length; x++) {
-        // newData.push(result.event[0].price);
-        console.log(newData);
-      }
-
-      var newDataSet = {
-        ...oldDataSet
-      };
-
-      newDataSet.data = newData;
-      console.log(newData);
-
-      var newState = {
-        ...initialState,
-        datasets: [newDataSet]
-      };
-
-      this.setState(newState);
-    }, 5000);
-  }
+  componentDidMount() {}
 
   render() {
     return (
       <div className="fourth_wrapp">
-        Count: <strong> {this.state.data.eventId} </strong>{" "}
         <Websocket
           url="wss://api.gemini.com/v1/marketdata/btcusd"
           onMessage={this.handleData.bind(this)}
-        />{" "}
+        />
         <div className="schedule">
-          <Line data={this.state} />{" "}
-        </div>{" "}
+          <Line data={this.state} />
+        </div>
       </div>
     );
   }

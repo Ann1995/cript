@@ -1,4 +1,4 @@
-$somepixel:10px;
+$somepixel: 10px;
 .main {
     background-color: #80808033;
     width: 50%;
@@ -9,11 +9,28 @@ $somepixel:10px;
 .wrapp_main {
     height: 40px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    padding-top: 10px;
+    clear: both;
+}
+
+.number_wrapp input {
+    width: 148px;
+    float: left;
+    height: 38px;
+    margin: 0px;
+    border-color: rgb(169, 169, 169);
+    padding: 0px;
+    border-width: 1px;
+    border-style: solid;
 }
 
 .wrapp_main select,
-.wrapp_main input,
 .wrapp_main button {
-    min-width: 150px;
+    width: 150px;
+}
+
+.card_main .card-body {
+    display: flex;
+    justify-content: space-around;
 }

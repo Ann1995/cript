@@ -9,38 +9,8 @@ class Currency3 extends Component {
       values: {},
       sortby: "day",
       char: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July"
-        ],
-        datasets: [
-          {
-            label: "BTC",
-            fill: false,
-            lineTension: 0.1,
-            backgroundColor: "rgba(75,192,192,0.4)",
-            borderColor: "rgba(75,192,192,1)",
-            borderCapStyle: "butt",
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: "miter",
-            pointBorderColor: "rgba(75,192,192,1)",
-            pointBackgroundColor: "#fff",
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40]
-          }
-        ]
+        labels: [],
+        datasets: []
       }
     };
 
@@ -65,10 +35,13 @@ class Currency3 extends Component {
 
     today = yyyy + "-" + mm + "-" + dd;
     this.setState({ sortby: event.target.value });
-    var kind = this.state.sortby;
+    var kind = event.target.value;
     var url;
     if (kind == "month") {
-      var monthago = yyyy + "-" + (mm - 1) + "-" + dd;
+      if (mm < 10) {
+        mm = "0" + (mm - 1);  
+      }
+      var monthago = yyyy + "-" + mm + "-" + dd;
       url =
         "https://api.coindesk.com/v1/bpi/historical/close.json?start=" +
         monthago +
@@ -94,7 +67,7 @@ class Currency3 extends Component {
           values: res.bpi,
           char: {
             ...this.state.char,
-            labels: Object.keys(res.bpi) 
+            labels: Object.keys(res.bpi)
           }
         });
         this.setState({
@@ -133,18 +106,18 @@ class Currency3 extends Component {
       <div className="wrapp_third">
         <div>
           <select className="inner_select" onChange={this.handleChange}>
-            <option value="day"> Day </option>  
-            <option value="month"> Month </option>  
-            <option value="year"> Year </option>  
-          </select>  
-        </div>
+            <option value="day"> Day </option>{" "}
+            <option value="month"> Month </option>{" "}
+            <option value="year"> Year </option>{" "}
+          </select>{" "}
+        </div>{" "}
         <div>
           <div className="col-sm-12 card_main ">
             <div className="schedule">
-              <Line data={this.state.char} />  
-            </div>  
-          </div>  
-        </div>  
+              <Line data={this.state.char} />{" "}
+            </div>{" "}
+          </div>{" "}
+        </div>{" "}
       </div>
     );
   }

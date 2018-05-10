@@ -27,7 +27,9 @@ class Currency2 extends Component {
         {
           valuenumb: Number(event.target.value)
         },
-        this.update
+        () => {
+          this.update();
+        }
       );
     }
     if (param == "cripta") {
@@ -38,15 +40,19 @@ class Currency2 extends Component {
           valuecript: event.target.value,
           textcript: event.nativeEvent.target[index].text
         },
-        this.update
+        () => {
+          this.update();
+        } 
       );
     }
     if (param == "currency") {
       this.setState(
         {
           valuecurrency: event.target.value
-        },
-        this.update
+        }, 
+        () => {
+          this.update();
+        }
       );
     }
   }
@@ -73,7 +79,7 @@ class Currency2 extends Component {
   render() {
     return (
       <div className="main">
-        <h1> Cryptocurrency Converter Calculator </h1>{" "}
+        <h1> Cryptocurrency Converter Calculator </h1>
         <div className="wrapp_main">
           <input
             value={this.state.valuenumb}
@@ -82,33 +88,32 @@ class Currency2 extends Component {
             min="0"
           />
           <select onChange={this.handleChange.bind(this, "cripta")}>
-            <option value="1"> Bitcoin </option>{" "}
-            <option value="2"> Litecoin </option>{" "}
-            <option value="3"> Namecoin </option>{" "}
-            <option value="4"> Terracoin </option>{" "}
-            <option value="5"> Peercoin </option>{" "}
-            <option value="6"> Novacoin </option>{" "}
-          </select>{" "}
-          <button onClick={this.estimation.bind(this)}>= </button>{" "}
+            <option value="1"> Bitcoin </option>
+            <option value="2"> Litecoin </option>
+            <option value="3"> Namecoin </option>
+            <option value="4"> Terracoin </option>
+            <option value="5"> Peercoin </option>
+            <option value="6"> Novacoin </option>
+          </select>
+          <button onClick={this.estimation.bind(this)}>= </button>
           <select onChange={this.handleChange.bind(this, "currency")}>
-            <option value="USD"> USD </option>{" "}
-            <option value="EUR"> EUR </option>{" "}
-            <option value="RUB"> RUB </option>{" "}
-          </select>{" "}
-        </div>{" "}
+            <option value="USD"> USD </option>
+            <option value="EUR"> EUR </option>
+            <option value="RUB"> RUB </option>
+          </select>
+        </div>
         <div>
           <div className="col-sm-12 card_main ">
             <div className="card">
               <div className="card-body">
                 <p id="numb">
-                  {" "}
-                  {this.state.valuenumb} {this.state.textcript}{" "}
-                </p>{" "}
-                <p> {this.state.newprice} </p>{" "}
-              </div>{" "}
-            </div>{" "}
-          </div>{" "}
-        </div>{" "}
+                  {this.state.valuenumb} {this.state.textcript}
+                </p>
+                <p> {this.state.newprice} </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

@@ -15,8 +15,8 @@ const Item = props => {
   );
 };
 class Currency extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       values: [],
       valuefirst: "EUR",
@@ -32,14 +32,11 @@ class Currency extends Component {
   componentWillMount() {
     this.update();
   }
-  handleChange(event) {
-    this.setState(
-      {
-        valuefirst: event.target.value
-      },
-      this.update()
-    );
-  }
+  handleChange = event => {
+    this.setState({ valuefirst: event.target.value }, () => {
+      this.update();
+    });
+  };
   update() {
     var url =
       "https://api.coinmarketcap.com/v2/ticker/?convert=" +
@@ -55,10 +52,15 @@ class Currency extends Component {
   render() {
     return (
       <div className="App-First">
-        <select className="allwidth" onChange={this.handleChange}>
+        <select
+          value={this.state.valuefirst}
+          className="allwidth"
+          onChange={this.handleChange} >
           <option value="USD"> USD </option>
-          <option value="EUR"> EUR </option> <option value="RUB"> RUB </option>
+          <option value="EUR"> EUR </option>
+          <option value="RUB"> RUB </option>
         </select>
+
         <div className="flex">
           {this.state.values ? (
             this.state.values.map((el, i) => (
