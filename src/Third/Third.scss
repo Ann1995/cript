@@ -1,4 +1,10 @@
-.schedule {
+$center: 0 auto;
+.wrapp_third {
     width: 50%;
-    margin: 0 auto;
+    margin: $center;
+}
+
+.inner_select {
+    width: 100%;
+    height: 50px;
 }

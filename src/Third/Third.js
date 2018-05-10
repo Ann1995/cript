@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 import styles from "./Third.scss";
-{
-  /* <Doughnut data={this.state.values} /> */
-}
 
 class Currency3 extends Component {
   constructor() {
@@ -97,7 +94,7 @@ class Currency3 extends Component {
           values: res.bpi,
           char: {
             ...this.state.char,
-            labels: Object.keys(res.bpi)
+            labels: Object.keys(res.bpi) 
           }
         });
         this.setState({
@@ -133,22 +130,21 @@ class Currency3 extends Component {
 
   render() {
     return (
-      <div>
+      <div className="wrapp_third">
         <div>
-          <select onChange={this.handleChange}>
-            <option value="day">Day</option>
-            <option value="month">Month</option>
-            <option value="year">Year</option>
-          </select>
+          <select className="inner_select" onChange={this.handleChange}>
+            <option value="day"> Day </option>  
+            <option value="month"> Month </option>  
+            <option value="year"> Year </option>  
+          </select>  
         </div>
-
         <div>
           <div className="col-sm-12 card_main ">
             <div className="schedule">
-              <Line data={this.state.char} />
-            </div>
-          </div>
-        </div>
+              <Line data={this.state.char} />  
+            </div>  
+          </div>  
+        </div>  
       </div>
     );
   }

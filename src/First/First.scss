@@ -1,0 +1,21 @@
+$width: 50%;
+$center: 0 auto;
+$somepixel:10px;
+.App-First {
+    margin-top: 100px;
+}
+
+select.allwidth {
+    height: 50px;
+    width: $width;
+    margin: $center;
+    margin-bottom: $somepixel;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-around;
+    margin-top: $somepixel;
+    width: $width;
+    margin: $center;
+}

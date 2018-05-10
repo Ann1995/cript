@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import styles from "./Fourth.scss";
 import { Line } from "react-chartjs-2";
 import Websocket from "react-websocket";
 const initialState = {
@@ -48,7 +49,7 @@ class Currency4 extends React.Component {
       var newData = [];
 
       for (var x = 0; x < this.state.labels.length; x++) {
-        newData.push(result.event[0].price);
+        // newData.push(result.event[0].price);
         console.log(newData);
       }
 
@@ -70,7 +71,7 @@ class Currency4 extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="fourth_wrapp">
         Count: <strong> {this.state.data.eventId} </strong>{" "}
         <Websocket
           url="wss://api.gemini.com/v1/marketdata/btcusd"

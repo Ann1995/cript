@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-
+import styles from "./First.scss";
 const Item = props => {
   return (
     <div key={props.key} className="col-sm-12 card_main ">
       <div className="card">
         <div className="card-body">
           <div className="row">
-            <div className="col-sm-6"> {props.name} </div>{" "}
-            <div className="col-sm-6"> {props.prise} </div>{" "}
-          </div>{" "}
-        </div>{" "}
-      </div>{" "}
+            <div className="col-sm-6"> {props.name} </div>
+            <div className="col-sm-6"> {props.prise} </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
@@ -19,7 +19,7 @@ class Currency extends Component {
     super();
     this.state = {
       values: [],
-      valuefirst: "",
+      valuefirst: "EUR",
       key: "",
       prise: "",
       name: ""
@@ -29,12 +29,15 @@ class Currency extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentWillMount() {
+    this.update();
+  }
   handleChange(event) {
     this.setState(
       {
         valuefirst: event.target.value
       },
-      this.update
+      this.update()
     );
   }
   update() {
@@ -51,28 +54,24 @@ class Currency extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <h1> first </h1>{" "}
+      <div className="App-First">
         <select className="allwidth" onChange={this.handleChange}>
-          <option value=""> Select </option> <option value="USD"> USD </option>{" "}
-          <option value="EUR"> EUR </option> <option value="RUB"> RUB </option>{" "}
+          <option value="USD"> USD </option>
+          <option value="EUR"> EUR </option> <option value="RUB"> RUB </option>
         </select>
-        <div>
-          {" "}
+        <div className="flex">
           {this.state.values ? (
             this.state.values.map((el, i) => (
               <Item
                 name={el.name}
                 key={i}
                 prise={el.quotes[Object.keys(el.quotes)[0]].price}
-              >
-                {" "}
-              </Item>
+              />
             ))
           ) : (
             <div className="empty_erro"> No values </div>
-          )}{" "}
-        </div>{" "}
+          )}
+        </div>
       </div>
     );
   }
