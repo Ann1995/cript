@@ -7,7 +7,7 @@ class Currency3 extends Component {
     super();
     this.state = {
       values: {},
-      sortby: "day",
+      sortby: "month",
       char: {
         labels: [],
         datasets: []
@@ -16,8 +16,6 @@ class Currency3 extends Component {
 
     this.handleChange = this.handleChange.bind(this);
   }
-
-  estimation() {}
 
   handleChange(event) {
     var today = new Date();
@@ -34,12 +32,16 @@ class Currency3 extends Component {
     }
 
     today = yyyy + "-" + mm + "-" + dd;
-    this.setState({ sortby: event.target.value });
-    var kind = event.target.value;
+    if (event) {
+      this.setState({ sortby: event.target.value });
+      var kind = event.target.value;
+    } else {
+      var kind = this.state.sortby;
+    }
     var url;
     if (kind == "month") {
       if (mm < 10) {
-        mm = "0" + (mm - 1);  
+        mm = "0" + (mm - 1);
       }
       var monthago = yyyy + "-" + mm + "-" + dd;
       url =
@@ -56,9 +58,6 @@ class Currency3 extends Component {
         "&end=" +
         today +
         "";
-    } else if (kind == "day") {
-      url =
-        "https://api.coindesk.com/v1/bpi/historical/close.json?start=2018-04-01&end=2018-04-30";
     }
     fetch(url)
       .then(resp => resp.json())
@@ -105,19 +104,18 @@ class Currency3 extends Component {
     return (
       <div className="wrapp_third">
         <div>
-          <select className="inner_select" onChange={this.handleChange}>
-            <option value="day"> Day </option>{" "}
-            <option value="month"> Month </option>{" "}
-            <option value="year"> Year </option>{" "}
-          </select>{" "}
-        </div>{" "}
+          <select className="inner_select" onChange={this.handleChange()}>
+            <option value="month"> Month </option>
+            <option value="year"> Year </option>
+          </select>
+        </div>
         <div>
           <div className="col-sm-12 card_main ">
             <div className="schedule">
-              <Line data={this.state.char} />{" "}
-            </div>{" "}
-          </div>{" "}
-        </div>{" "}
+              <Line data={this.state.char} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

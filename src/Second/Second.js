@@ -42,14 +42,14 @@ class Currency2 extends Component {
         },
         () => {
           this.update();
-        } 
+        }
       );
     }
     if (param == "currency") {
       this.setState(
         {
           valuecurrency: event.target.value
-        }, 
+        },
         () => {
           this.update();
         }
@@ -69,12 +69,13 @@ class Currency2 extends Component {
         this.setState({ values: data.data });
 
         this.setState({
-          price: data.data.quotes[Object.keys(data.data.quotes)[0]].price
+          price: data.data.quotes[Object.keys(data.data.quotes)[0]].price,
+             newprice: this.state.price * this.state.valuenumb
         });
       });
-    this.setState({
-      newprice: this.state.price * this.state.valuenumb
-    });
+    // this.setState({
+    //   newprice: this.state.price * this.state.valuenumb
+    // });
   }
   render() {
     return (
