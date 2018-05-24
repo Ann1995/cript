@@ -16,6 +16,10 @@ class Currency3 extends Component {
 
     this.handleChange = this.handleChange.bind(this);
   }
+  componentDidMount() {
+    this.handleChange();
+  }
+  handleChange;
 
   handleChange(event) {
     var today = new Date();
@@ -39,7 +43,7 @@ class Currency3 extends Component {
       var kind = this.state.sortby;
     }
     var url;
-    if (kind == "month") {
+    if (kind === "month") {
       if (mm < 10) {
         mm = "0" + (mm - 1);
       }
@@ -50,7 +54,7 @@ class Currency3 extends Component {
         "&end=" +
         today +
         "";
-    } else if (kind == "year") {
+    } else if (kind === "year") {
       var yearago = yyyy - 1 + "-" + mm + "-" + dd;
       url =
         "https://api.coindesk.com/v1/bpi/historical/close.json?start=" +
@@ -104,7 +108,7 @@ class Currency3 extends Component {
     return (
       <div className="wrapp_third">
         <div>
-          <select className="inner_select" onChange={this.handleChange()}>
+          <select className="inner_select" onChange={this.handleChange}>
             <option value="month"> Month </option>
             <option value="year"> Year </option>
           </select>

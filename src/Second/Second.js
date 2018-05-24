@@ -10,50 +10,35 @@ class Currency2 extends Component {
       valuecript: "1",
       textcript: "Bitcoin",
       valuecurrency: "USD",
-      key: "",
       price: 0,
-      newprice: "0",
-      name: ""
+      newprice: "0"
     };
 
     this.update = this.update.bind(this);
   }
 
-  estimation() {}
+  estimation() {
+    this.update();
+  }
 
   handleChange(param, event) {
     if (param == "number") {
-      this.setState(
-        {
-          valuenumb: Number(event.target.value)
-        },
-        () => {
-          this.update();
-        }
-      );
+      this.setState({
+        valuenumb: Number(event.target.value)
+      });
     }
     if (param == "cripta") {
       var index = event.nativeEvent.target.selectedIndex;
 
-      this.setState(
-        {
-          valuecript: event.target.value,
-          textcript: event.nativeEvent.target[index].text
-        },
-        () => {
-          this.update();
-        }
-      );
+      this.setState({
+        valuecript: event.target.value,
+        textcript: event.nativeEvent.target[index].text
+      });
     }
     if (param == "currency") {
-      this.setState(
-        {
-          valuecurrency: event.target.value
-        },
-        () => {
-          this.update();
-        }
-      );
+      this.setState({
+        valuecurrency: event.target.value
+      });
     }
   }
   update() {
@@ -69,25 +54,26 @@ class Currency2 extends Component {
         this.setState({ values: data.data });
 
         this.setState({
-          price: data.data.quotes[Object.keys(data.data.quotes)[0]].price,
-             newprice: this.state.price * this.state.valuenumb
+          price: data.data.quotes[Object.keys(data.data.quotes)[0]].price
         });
       });
-    // this.setState({
-    //   newprice: this.state.price * this.state.valuenumb
-    // });
+    this.setState({
+      newprice: this.state.price * this.state.valuenumb
+    });
   }
   render() {
     return (
       <div className="main">
         <h1> Cryptocurrency Converter Calculator </h1>
-        <div className="wrapp_main">
+        <div className="number_wrapp">
           <input
             value={this.state.valuenumb}
             onChange={this.handleChange.bind(this, "number")}
             type="number"
             min="0"
           />
+        </div>
+        <div className="wrapp_main">
           <select onChange={this.handleChange.bind(this, "cripta")}>
             <option value="1"> Bitcoin </option>
             <option value="2"> Litecoin </option>
@@ -110,7 +96,9 @@ class Currency2 extends Component {
                 <p id="numb">
                   {this.state.valuenumb} {this.state.textcript}
                 </p>
-                <p> {this.state.newprice} </p>
+                <p>
+                  {this.state.newprice} {this.state.valuecurrency}{" "}
+                </p>
               </div>
             </div>
           </div>
